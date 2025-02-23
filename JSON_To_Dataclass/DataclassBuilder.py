@@ -1,4 +1,5 @@
 import re
+from types import new_class
 
 tab = "\t"
 
@@ -36,7 +37,9 @@ class DataclassBuilder:
 
             if type(value) == dict:
                 dataclass_output += f"{tab}{key}: {key[0].upper() + key[1:]}\n"
-                self.inside_classes.append(self.handle_dict(value, key))
+                inner_class = self.handle_dict(value,key)
+                if inner_class not in self.inside_classes:
+                    self.inside_classes.append(inner_class)
             elif type(value) == list:
                 dataclass_output += self.handle_lists(key, value)
             else:
