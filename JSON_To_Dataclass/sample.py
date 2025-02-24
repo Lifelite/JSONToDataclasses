@@ -1,24 +1,28 @@
-class Q1:
-	question: str
-	options: list[str]
-	answer: str
+from dataclasses import dataclass
 
-class Sport:
-	q1: Q1
+@dataclass
+class DeviceType:
+	type: str
 
-class Q2:
-	question: str
-	options: list[str]
-	answer: str
+@dataclass
+class Properties:
+	deviceType: DeviceType
 
-class Maths:
-	q1: Q1
-	q2: Q2
+@dataclass
+class DeviceType:
+	const: str
 
-class Quiz:
-	sport: Sport
-	maths: Maths
+@dataclass
+class OneOf:
+	properties: Properties
+	$ref: str
 
 
+@dataclass
 class GeneratedDataclass:
-	quiz: Quiz
+	$id: str
+	$schema: str
+	type: str
+	properties: Properties
+	required: list[str]
+	oneOf: list[OneOf]

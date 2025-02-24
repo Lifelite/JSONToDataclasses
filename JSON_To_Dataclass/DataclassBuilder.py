@@ -2,6 +2,7 @@ import re
 from types import new_class
 
 tab = "\t"
+decorator_string = "@dataclass\n"
 
 class DataclassBuilder:
     def __init__(self, name:str, data:dict | list, default:bool=False):
@@ -18,7 +19,7 @@ class DataclassBuilder:
         for item in value:
             if type(item) == dict:
                 inner_dc = self.handle_dict(item)
-                data_string = f"class {key[0].upper() + key[1:]}:\n" + inner_dc
+                data_string = f"{decorator_string}class {key[0].upper() + key[1:]}:\n" + inner_dc
                 if data_string not in self.inside_classes:
                     self.inside_classes.append(data_string)
                     types.append(key[0].upper() + key[1:])
@@ -32,7 +33,7 @@ class DataclassBuilder:
         return f"{tab}{key}: list[{' | '.join(types)}]\n"
 
     def handle_dict(self, data, name=None):
-        dataclass_output = f"class {name[0].upper() + name[1:]}:\n" if name else ''
+        dataclass_output = f"{decorator_string}class {name[0].upper() + name[1:]}:\n" if name else ''
         for key, value in data.items():
 
             if type(value) == dict:
@@ -54,7 +55,7 @@ class DataclassBuilder:
         if dataclass_name is None:
             dataclass_name = self.name
 
-        dataclass_output = f"class {dataclass_name[0].upper() + dataclass_name[1:]}:\n"
+        dataclass_output = f"{decorator_string}class {dataclass_name[0].upper() + dataclass_name[1:]}:\n"
 
         if isinstance(data, dict):
             dataclass_output += self.handle_dict(data)
@@ -70,4 +71,4 @@ class DataclassBuilder:
         init_output = ''
         if self.inside_classes and len(self.inside_classes) > 0:
             init_output = '\n'.join(self.inside_classes)
-        return f"{init_output}\n\n{dataclass_output}"
+        return f"{"from dataclasses import dataclass"}\n\n{init_output}\n\n{dataclass_output}"
