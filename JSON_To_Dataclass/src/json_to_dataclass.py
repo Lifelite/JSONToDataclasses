@@ -53,6 +53,7 @@ parser.add_argument(
     help="Apply default values for all fields using the values within provided JSON file",
 )
 
+
 def get_default_path(is_input=False):
     cwd = os.getcwd()
     os.listdir(cwd)
@@ -71,7 +72,6 @@ def get_default_path(is_input=False):
     else:
         raise Exception("No JSON files found in current directory.  "
                         "Provide directory or JSON files using --directory or --input")
-
 
 
 parser.set_defaults(
@@ -119,6 +119,3 @@ try:
 except FileNotFoundError:
     print("Provided output file path does not exist")
     exit(1)
-
-
-

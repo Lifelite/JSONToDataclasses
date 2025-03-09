@@ -146,10 +146,7 @@ class DCObject:
         if self.inner_classes:
             for inner_dc in self.inner_classes:
                 file_string += inner_dc.build()
-        # elif self.attribute_strings:
-        #     return self.attribute_strings
         file_string += "\n\n"
         file_string += self.class_declare
         file_string += "\n".join(self.attribute_strings)
         return file_string
-
