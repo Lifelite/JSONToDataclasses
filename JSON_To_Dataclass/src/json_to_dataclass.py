@@ -2,8 +2,11 @@ import argparse
 import json
 import os
 import re
+import sys
 
-from JSON_To_Dataclass.DataclassBuilder import DataclassBuilder
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from JSON_To_Dataclass.src.DCObject import DCObject
 
 tab = "\t"
 
@@ -96,11 +99,16 @@ elif not name:
     name = "GeneratedDataclass"
 
 try:
-    dc_builder = DataclassBuilder(name, json_data)
+    dc_builder = DCObject(
+        name,
+        args.apply_defaults,
+        json_data,
+        top_parent=True
+    )
     if not args.output.endswith(".py"):
         args.output += ".py"
     with open(args.output, "w") as f:
-        f.write(dc_builder.create_dataclass())
+        f.write(dc_builder.build())
         print("File created successfully at {}".format(args.output))
         exit(0)
 except FileNotFoundError:

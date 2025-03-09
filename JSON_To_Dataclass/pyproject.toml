@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "json-to-dataclass"
+version = "1.0.0"
+description = "Useful tool for mapping out dataclasses based on JSON structure with typing"
+authors = ["Lifelite <j.t.huntsman@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
