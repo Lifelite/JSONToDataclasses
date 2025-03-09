@@ -22,30 +22,35 @@ parser.add_argument(
     "-i",
     "--input",
     type=str,
+    help="Direct system path to a JSON file",
 )
 
 parser.add_argument(
     "-o",
     "--output",
     type=str,
+    help="Directory the place output .py file with Dataclass"
 )
 
 parser.add_argument(
     "-d",
     "--directory",
     type=str,
+    help="Directory to JSON files, will parse all files within into data classes."
 )
 
 parser.add_argument(
     "-n",
     "--name",
     type=str,
+    help="Name of parent Dataclass",
 )
 
 parser.add_argument(
     "-ad",
     "--apply_defaults",
     type=bool,
+    help="Apply default values for all fields using the values within provided JSON file",
 )
 
 def get_default_path(is_input=False):
